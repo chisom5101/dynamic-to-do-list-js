@@ -1,53 +1,54 @@
-// Wait for the page to fully load
+// Run this code only after the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function () {
-  // Select DOM elements
+  // Step 1: Select DOM elements
   const addButton = document.getElementById('add-task-btn');
   const taskInput = document.getElementById('task-input');
   const taskList = document.getElementById('task-list');
 
-  // Define the function to add tasks
+  // Step 2: Define the function to add a task
   function addTask() {
-    // Get and trim the value from the input
-    const taskText = taskInput.value.trim();
+    const taskText = taskInput.value.trim(); // Trim the input text
 
-    // If the input is empty, alert the user
     if (taskText === '') {
       alert('Please enter a task.');
       return;
     }
 
-    // Create a new list item (li)
+    // Create a new list item (li) for the task
     const li = document.createElement('li');
     li.textContent = taskText;
 
-    // Create a remove button
+    // Create the remove button
     const removeButton = document.createElement('button');
     removeButton.textContent = 'Remove';
     removeButton.className = 'remove-btn';
 
-    // Add a click event to remove the task
+    // When clicked, remove the task from the list
     removeButton.onclick = function () {
       taskList.removeChild(li);
     };
 
-    // Add button to the li, then add li to the task list
+    // Add the remove button to the task item
     li.appendChild(removeButton);
+
+    // Add the task item to the task list
     taskList.appendChild(li);
 
     // Clear the input field
     taskInput.value = '';
   }
 
-  // Add event listener to button click
+  // Step 3: Add event listener for the "Add Task" button
   addButton.addEventListener('click', addTask);
 
-  // Add event listener for Enter key
+  // Step 4: Add event listener for "Enter" key in input field
   taskInput.addEventListener('keypress', function (event) {
     if (event.key === 'Enter') {
       addTask();
     }
   });
 
-  // Optional: Call addTask on load if you want to prefill a task (demo purpose)
-  // addTask();  // You can comment this out
+  // OPTIONAL: Add a default task on page load for testing
+  // taskInput.value = 'Sample Task';
+  // addTask();
 });
